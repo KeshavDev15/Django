@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block title %}
+    Weepitch and Django
+{% endblock %}
+{% block content %}
+    <h1 class='text-center mt-4'>Welcome To Weepitch and Django</h1>
+    <a class="btn btn-primary mb-4" href="{% url 'weepitch_create' %}">Create a Pitch</a>
+    <div class="container row gap-3">
+        {% for weepitch in weepitchs %}
+        <div class="card" style="width: 18rem;">
+            <img src="{{weepitch.photo.url}}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">{{weepitch.user.username}}</h5>
+              <p class="card-text">{{weepitch.text}}</p>
+              {% if weepitch.user == user %}
+              <a href="{% url 'weepitch_edit' weepitch.id %}" class="btn btn-primary">Edit</a>
+              <a href="{% url 'weepitch_delete' weepitch.id %}" class="btn btn-danger">Delete</a>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+    </div>
+{% endblock %}
